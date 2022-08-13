@@ -1,37 +1,36 @@
 <template>
   <div class="container">
     <span
-      class="pencil save-state"
       v-if="pencil"
+      class="pencil save-state"
     >
       changed
     </span>
     <span
-      class="pencil save-state"
       v-if="saved"
+      class="pencil save-state"
     >
       saved
     </span>
 
-    <h1>{{option}} Note</h1>
+    <h1>{{ option }} Note</h1>
     <form
       class="note-form"
       @submit.prevent="submitForm()"
       @input="formChange()"
     >
       <input
-        type="text"
         v-model="formData.title"
+        type="text"
         name="title"
         placeholder="title"
-      />
+      >
       <textarea
         v-model="formData.body"
         name="body"
         placeholder="Note"
-      >
-      </textarea>
-      <input type="submit" value="SUBMIT" />
+      />
+      <input type="submit" value="SUBMIT">
     </form>
     <nuxt-link
       to="/"
@@ -47,6 +46,21 @@ import PouchDB from 'pouchdb'
 
 export default {
   name: 'EditPage',
+
+  data () {
+    return {
+      db: {},
+      option: 'New',
+      formTimeout: null,
+      pencil: false,
+      saved: false,
+      formData: {
+        _id: this.$route.query?.uuid || this.uuidv4(),
+        title: '',
+        body: ''
+      }
+    }
+  },
 
   created () {
     this.db = new PouchDB('notes')
@@ -83,21 +97,6 @@ export default {
       return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
         (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
       )
-    }
-  },
-
-  data () {
-    return {
-      db: {},
-      option: 'New',
-      formTimeout: null,
-      pencil: false,
-      saved: false,
-      formData: {
-        _id: this.$route.query?.uuid || this.uuidv4(),
-        title: '',
-        body: ''
-      }
     }
   }
 }

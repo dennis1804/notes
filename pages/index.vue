@@ -62,6 +62,18 @@ export default {
     }
   },
 
+  created () {
+    PouchDB.plugin(PouchDBFind)
+    this.db = new PouchDB('notes')
+    const db = this.db
+    this.getDBRecords(db, 2, 0).then((data) => {
+      this.recentCards = data
+    })
+    this.getDBRecords(db, 10, 2).then((data) => {
+      this.olderCards = data
+    })
+  },
+
   methods: {
     getReadableDate (timestamp) {
       const date = new Date(timestamp)
@@ -82,18 +94,6 @@ export default {
         })
       }).then(data => data.docs)
     }
-  },
-
-  created () {
-    PouchDB.plugin(PouchDBFind)
-    this.db = new PouchDB('notes')
-    const db = this.db
-    this.getDBRecords(db, 2, 0).then((data) => {
-      this.recentCards = data
-    })
-    this.getDBRecords(db, 10, 2).then((data) => {
-      this.olderCards = data
-    })
   }
 }
 </script>

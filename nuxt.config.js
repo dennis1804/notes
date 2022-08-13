@@ -21,7 +21,7 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-	'~/assets/scss/main'
+    '~/assets/scss/main'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -52,11 +52,11 @@ export default {
       description: 'A super simple notes application',
       categories: ['tools'],
       orientation: 'any',
-      theme_color : '#002f6c',
-      background_color : '#383838',
+      theme_color: '#002f6c',
+      background_color: '#383838'
     },
     icon: {
-      sizes: [64, 120, 144, 152, 192, 384, 512],
+      sizes: [64, 120, 144, 152, 192, 384, 512]
     },
     workbox: {
       cleanupOutdatedCaches: true,
