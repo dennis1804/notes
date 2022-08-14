@@ -163,10 +163,65 @@ form.note-form {
 	}
 }
 
+button.note-action {
+	font-family: 'Nothing';
+	height: 20px;
+	width: 20px;
+	border: 1px solid;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 18px;
+	border-radius: 50%;
+	background: inherit;
+	color: inherit;
+	font-size: 14px;
+}
+
 .save-state {
 	position: absolute;
 	left: 0;
 	top: 0;
 	background: black;
-	color:rgba(55, 55, 55, 1)
+	color:rgba(55, 55, 55, 1);
+}
+
+
+.confirm-dialog {
+	&.visible {
+		height: 120px;
+		padding: 14px;
+		transition: height .2s ease, padding 0s;
+	}
+
+	background-color: rgba(55, 55, 55, 1);
+	position: fixed;
+	height: 0;
+	width: calc(100% - 28px);
+	left: 0%;
+	bottom: 0;
+
+	p {
+		max-height: 60px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		margin-top: 0;
+	}
+
+
+	transition: height .2s ease, padding 0s ease .19s;
+	.buttons {
+		display: flex;
+		button {
+			flex: 1;
+			height: 28px;
+			background: inherit;
+			border: none;
+			color: inherit;
+			font-family: "Nothing";
+			font-size: 1.2rem;
+		}
+		button.confirm {
+			color: #ccd5e2;
+		}
+	}
 }
