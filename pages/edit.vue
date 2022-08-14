@@ -84,7 +84,9 @@ export default {
 
   methods: {
     submitForm () {
-      navigator.vibrate(10)
+      if (navigator.vibrate) {
+        navigator.vibrate(10)
+      }
       this.formData.changeDate = (new Date()).getTime()
       this.db.put(this.formData).then((doc) => {
         this.pencil = false
