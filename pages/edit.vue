@@ -30,14 +30,25 @@
         name="body"
         placeholder="Note"
       />
-      <input type="submit" value="SUBMIT">
     </form>
+    <button
+      class="delete note-action"
+      @click="removeable = true"
+    >
+      X
+    </button>
     <nuxt-link
       to="/"
       class="fab"
     >
       BACK
     </nuxt-link>
+    <ConfirmDialog
+      :class="{'visible': removeable}"
+      :dialog="`Are you sure you want to delete ${formData.title}?`"
+      :cancel-callback="clearDelete"
+      :confirm-callback="deleteElem"
+    />
   </div>
 </template>
 
@@ -51,6 +62,7 @@ export default {
     return {
       db: {},
       option: 'New',
+      removeable: false,
       formTimeout: null,
       pencil: false,
       saved: false,
@@ -92,6 +104,15 @@ export default {
       this.timeout = setTimeout(function () {
         that.submitForm()
       }, 1000)
+    },
+    clearDelete () {
+      this.removeable = false
+    },
+    deleteElem () {
+      this.db.get(this.formData._id).then((doc) => {
+        return this.db.remove(doc)
+      })
+      this.$router.push('/')
     },
     uuidv4 () {
       return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>

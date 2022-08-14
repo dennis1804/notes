@@ -29,7 +29,10 @@
       >
         <h4>{{ card.title }}</h4>
         <span>{{ getReadableDate(card.changeDate) }}</span>
-        <div class="delete">
+        <div
+          class="delete"
+          @click.prevent="showDeleteDialog(card)"
+        >
           X
         </div>
       </nuxt-link>
@@ -40,19 +43,31 @@
     >
       NEW
     </nuxt-link>
+    <ConfirmDialog
+      :class="{'visible': removeable._id}"
+      :dialog="`Are you sure you want to delete ${removeable.title}?`"
+      :cancel-callback="clearDelete"
+      :confirm-callback="deleteElem"
+    />
   </div>
 </template>
 
 <script>
 import PouchDB from 'pouchdb'
 import PouchDBFind from 'pouchdb-find'
+import ConfirmDialog from '~/components/ConfirmDialog'
 
 export default {
   name: 'IndexPage',
 
+  components: {
+    ConfirmDialog
+  },
+
   data () {
     return {
       db: {},
+      removeable: {},
       recentCards: [
         { title: 'create your first note' }
       ],
@@ -75,6 +90,26 @@ export default {
   },
 
   methods: {
+    showDeleteDialog (item) {
+      this.removeable = item
+    },
+
+    clearDelete () {
+      this.removeable = {}
+    },
+
+    deleteElem () {
+      const item = this.removeable
+      const db = this.db
+      db.get(item._id).then((doc) => {
+        return db.remove(doc)
+      })
+      this.getDBRecords(db, 10, 2).then((data) => {
+        this.olderCards = data
+      })
+      this.clearDelete()
+    },
+
     getReadableDate (timestamp) {
       const date = new Date(timestamp)
       return date.toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })
