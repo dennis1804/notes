@@ -23,11 +23,19 @@ export default {
   name: 'ConfirmDialog',
 
   props: {
-    dialog: String,
-    cancelCallback: Function,
-    confirmCallback: Function
+    dialog: {
+      type: String,
+      default: ''
+    },
+    cancelCallback: {
+      type: Function,
+      default: () => {}
+    },
+    confirmCallback: {
+      type: Function,
+      default: () => {}
+    }
   }
-
 }
 
 </script>
