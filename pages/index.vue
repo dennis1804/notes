@@ -63,6 +63,7 @@ export default {
   components: {
     ConfirmDialog
   },
+  transition: 'page-right',
 
   data () {
     return {

@@ -57,6 +57,7 @@ import PouchDB from 'pouchdb'
 
 export default {
   name: 'EditPage',
+  transition: 'page-left',
 
   data () {
     return {
