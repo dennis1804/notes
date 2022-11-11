@@ -53,7 +53,16 @@ export default {
       categories: ['tools'],
       orientation: 'any',
       theme_color: '#002f6c',
-      background_color: '#383838'
+      background_color: '#383838',
+      share_target: {
+        action: '/edit',
+        method: 'get',
+        params: {
+          title: 'name',
+          text: 'desription',
+          url: 'link'
+        }
+      }
     },
     icon: {
       sizes: [64, 120, 144, 152, 192, 384, 512]

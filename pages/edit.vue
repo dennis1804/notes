@@ -76,11 +76,19 @@ export default {
   },
 
   created () {
+    if (this.$route.query.name) {
+      this.formData.title = this.$route.query.name
+      this.formData.body = this.$route.query.description + '\n' + this.$route.query.link
+    }
     this.db = new PouchDB('notes')
     this.db.get(this.formData._id).then((doc) => {
       this.formData = doc
       this.option = 'Edit'
     })
+
+    if (this.$route.query.name) {
+      this.submitForm()
+    }
   },
 
   methods: {
