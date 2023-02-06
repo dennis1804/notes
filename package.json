@@ -14,7 +14,7 @@
   "dependencies": {
     "@nuxtjs/pwa": "^3.3.5",
     "core-js": "^3.27.1",
-    "nuxt": "^2.15.8",
+    "nuxt": "^3.1.2",
     "pouchdb": "^8.0.0",
     "pouchdb-find": "^7.3.0",
     "vue": "^2.7.14",
